@@ -18,9 +18,9 @@
 !
 !=====================================================================
 
-MODULE utils
+MODULE fdf_utils
   USE, INTRINSIC :: iso_fortran_env
-  USE prec
+  USE fdf_prec
   implicit none
 
 ! String functions
@@ -445,4 +445,4 @@ MODULE utils
 !--------------------------------------------------------------------------- END
     END SUBROUTINE die
 
-END MODULE utils
+END MODULE fdf_utils

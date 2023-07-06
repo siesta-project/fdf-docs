@@ -8,7 +8,7 @@
     <meta name="author" content="Alberto Garcia, Nick Papior, Raul de la Cruz" >
     <link rel="icon" href="../favicon.png">
 
-    <title>prec &ndash; libfdf</title>
+    <title>fdf_legacy_units_m &ndash; libfdf</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -85,7 +85,7 @@
 
     <div class="container">
   <div class="row">
-    <h1>prec
+    <h1>fdf_legacy_units_m
       <small>Module</small>
       
     </h1>
@@ -98,17 +98,17 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title=" 0.2% of total for modules and submodules.">5 statements</a>
+               title=" 2.3% of total for modules and submodules.">74 statements</a>
           </li>
 
             <li id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/prec.F90"> Source File</a>
+              <a href="../src/legacy_units.F90"> Source File</a>
             </li>
         </ul>
         <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/prec.f90.html'>prec.F90</a></li>
-          <li class="active">prec</li>
+              <li><a href='../sourcefile/legacy_units.f90.html'>legacy_units.F90</a></li>
+          <li class="active">fdf_legacy_units_m</li>
         </ol>
       </div>
     </div>
@@ -134,9 +134,11 @@
       </div>
       <div id="vars-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/prec.html#variable-ip">ip</a>
-            <a class="list-group-item" href="../module/prec.html#variable-sp">sp</a>
-            <a class="list-group-item" href="../module/prec.html#variable-dp">dp</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-nu">nu</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-iu">iu</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-dimm">dimm</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-name">name</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-unit~7">unit</a>
         </div>
       </div>
     </div>
@@ -151,7 +153,19 @@
   
   
   
-  
+      <div class="panel panel-primary">
+      <div class="panel-heading text-left">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" href="#subs-0">Subroutines</a>
+        </h3>
+      </div>
+      <div id="subs-0" class="panel-collapse collapse">
+        <div class="list-group">
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#proc-inquire_unit">inquire_unit</a>
+        </div>
+      </div>
+    </div>
+
   
   
   
@@ -166,7 +180,19 @@
 
     <div class="col-md-9" id='text'>
       
-      
+<br>          <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Uses</h3>
+      </div>
+      <ul class="list-group">
+          <li class="list-group-item">
+            <ul class="list-inline">
+                <li><a href='../module/fdf_prec.html'>fdf_prec</a></li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+
       
       <br>
 
@@ -181,9 +207,11 @@
       </div>
       <div id="vars-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../module/prec.html#variable-ip">ip</a>
-            <a class="list-group-item" href="../module/prec.html#variable-sp">sp</a>
-            <a class="list-group-item" href="../module/prec.html#variable-dp">dp</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-nu">nu</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-iu">iu</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-dimm">dimm</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-name">name</a>
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#variable-unit~7">unit</a>
         </div>
       </div>
     </div>
@@ -198,7 +226,19 @@
   
   
   
-  
+      <div class="panel panel-primary">
+      <div class="panel-heading text-left">
+        <h3 class="panel-title">
+          <a data-toggle="collapse" href="#subs-1">Subroutines</a>
+        </h3>
+      </div>
+      <div id="subs-1" class="panel-collapse collapse">
+        <div class="list-group">
+            <a class="list-group-item" href="../module/fdf_legacy_units_m.html#proc-inquire_unit">inquire_unit</a>
+        </div>
+      </div>
+    </div>
+
   
   
   
@@ -225,51 +265,85 @@
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-ip"></span>
+              <span class="anchor" id="variable-nu"></span>
               integer,
             </td>
-              <td>public,</td>
+              <td>private,</td>
             <td>
 parameter               
             </td>
             <td>::</td>
-            <td><strong>ip</strong></td>
+            <td><strong>nu</strong></td>
 <td> =</td>
-                <td>selected_int_kind(9)</td>
+                <td>80</td>
             <td>
                 
             </td>
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-sp"></span>
+              <span class="anchor" id="variable-iu"></span>
               integer,
             </td>
-              <td>public,</td>
+              <td>private</td>
             <td>
-parameter               
+              
             </td>
             <td>::</td>
-            <td><strong>sp</strong></td>
-<td> =</td>
-                <td>selected_real_kind(6, 20)</td>
+            <td><strong>iu</strong></td>
+                <td></td>
+                <td></td>
             <td>
                 
             </td>
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-dp"></span>
-              integer,
+              <span class="anchor" id="variable-dimm"></span>
+              character(len=8),
             </td>
-              <td>public,</td>
+              <td>private</td>
             <td>
-parameter               
+              
             </td>
             <td>::</td>
-            <td><strong>dp</strong></td>
-<td> =</td>
-                <td>selected_real_kind(14, 100)</td>
+            <td><strong>dimm</strong>(nu)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-name"></span>
+              character(len=10),
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>name</strong>(nu)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-unit~7"></span>
+              real(kind=dp),
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>unit</strong>(nu)</td>
+                <td></td>
+                <td></td>
             <td>
                 
             </td>
@@ -285,6 +359,110 @@ parameter
 
 
 
+        <section>
+          <h2>Subroutines</h2>
+              <div class="panel panel-default">
+    <div class="panel-heading codesum"><span class="anchor" id="proc-inquire_unit"></span><h3>public  subroutine <a href='../proc/inquire_unit.html'>inquire_unit</a>(unit_str, stat, phys_dim, unit_name, unit_value)  
+</h3></div>
+    <div class="panel-body">
+          
+  <p>Returns information about a unit in the units table</p><a href="../proc/inquire_unit.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>unit_str</strong></td>
+            <td>
+<p>unit specification</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              integer,
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>stat</strong></td>
+            <td>
+<p>status code</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              character(len=*),
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>phys_dim</strong></td>
+            <td>
+<p>physical dimension (e.g. 'mass')</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              character(len=*),
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>unit_name</strong></td>
+            <td>
+<p>unit name (e.g. 'g')</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real(kind=dp),
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>unit_value</strong></td>
+            <td>
+<p>actual value (e.g. 1.e-3)</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+        </section>
+        <br>
 
 
 

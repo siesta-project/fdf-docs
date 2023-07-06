@@ -115,7 +115,7 @@ file reads must be instantiated. This is done with the <a href="../../proc/fdf_r
 routine, which is also recursive and may call <code>fdf_read</code> again.</p>
 <h2 id="parsing">Parsing</h2>
 <p>Low-level support for all the parsing needed is provided by the
-<a href="../../module/parse.html">parse</a> module, which is useful in itself and could potentially be
+<a href="../../module/fdf_parse.html">fdf_parse</a> module, which is useful in itself and could potentially be
 made into an independent library. The basic idiom is to <code>digest</code> an
 input line into tokens, tagging them as integers, reals, names
 (strings), etc. There are query functions for number of tokens of each

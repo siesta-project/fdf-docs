@@ -69,29 +69,29 @@
 !========================================================================
 
 MODULE fdf
-  USE io_fdf
+  USE fdf_io
 
-  USE parse, only: parsed_line
-  USE parse, only: nintegers, nreals
-  USE parse, only: nvalues, nnames, ntokens
-  USE parse, only: integers, reals
-  USE parse, only: values, names, tokens, characters
-  USE parse, only: match
-  USE parse, only: digest, blocks, endblocks, labels
-  USE parse, only: destroy, setdebug, setlog, setmorphol
-  USE parse, only: nlists, nintegerlists, nreallists
-  USE parse, only: integerlists, reallists, valuelists
+  USE fdf_parse, only: parsed_line
+  USE fdf_parse, only: nintegers, nreals
+  USE fdf_parse, only: nvalues, nnames, ntokens
+  USE fdf_parse, only: integers, reals
+  USE fdf_parse, only: values, names, tokens, characters
+  USE fdf_parse, only: match
+  USE fdf_parse, only: digest, blocks, endblocks, labels
+  USE fdf_parse, only: destroy, setdebug, setlog, setmorphol
+  USE fdf_parse, only: nlists, nintegerlists, nreallists
+  USE fdf_parse, only: integerlists, reallists, valuelists
 
-  USE parse, only: search
-  USE parse, only: fdf_bsearch => search
-  USE parse, only: fdf_substring_search => substring_search
+  USE fdf_parse, only: search
+  USE fdf_parse, only: fdf_bsearch => search
+  USE fdf_parse, only: fdf_substring_search => substring_search
 
-  USE parse, only: serialize_pline, recreate_pline
-  USE parse, only: SERIALIZED_LENGTH
+  USE fdf_parse, only: serialize_pline, recreate_pline
+  USE fdf_parse, only: SERIALIZED_LENGTH
 
-  USE utils
-  USE prec
-  USE legacy_units_m, only: fdf_legacy_unit_handler => inquire_unit
+  USE fdf_utils
+  USE fdf_prec
+  USE fdf_legacy_units_m, only: fdf_legacy_unit_handler => inquire_unit
   
   implicit none
 
@@ -2232,8 +2232,8 @@ CONTAINS
      end function fdf_convfac
 
   function wrapper_convfac(from,to,stat,msg) result (factor)
-    use utils, only: leqi
-    use prec, only: dp
+    use fdf_utils, only: leqi
+    use fdf_prec, only: dp
 
     implicit none
 

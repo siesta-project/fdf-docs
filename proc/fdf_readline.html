@@ -98,16 +98,17 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title=" 0.4% of total for procedures.">17 statements</a>
+               title=" 0.5% of total for procedures.">14 statements</a>
           </li>
 
             <li id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/fdf_readline.F90"> Source File</a>
+              <a href="../src/fdf.F90"> Source File</a>
             </li>
         </ul>
         <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/fdf_readline.f90.html'>fdf_readline.F90</a></li>
+              <li><a href='../sourcefile/fdf.f90.html'>fdf.F90</a></li>
+              <li><a href='../module/fdf.html'>fdf</a></li>
           <li class="active">fdf_readline</li>
         </ol>
       </div>
@@ -151,21 +152,9 @@
     </div>
     
     <div class="col-md-9" id='text'>
-    <h2> function fdf_readline(line)  
+    <h2>private  function fdf_readline(line)  
 </h2>
-        <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Uses</h3>
-      </div>
-      <ul class="list-group">
-          <li class="list-group-item">
-            <ul class="list-inline">
-                <li>m_read</li>
-            </ul>
-          </li>
-      </ul>
-    </div>
-
+    
 
 
 
@@ -182,12 +171,12 @@
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-line~9"></span>
-              character(len=:),
+              <span class="anchor" id="variable-line~6"></span>
+              character(len=*)
             </td>
-<td>intent(out),</td>
+<td></td>
               <td></td>            <td>
-              allocatable
+              
             </td>
             <td>::</td>
             <td><strong>line</strong></td>

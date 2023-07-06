@@ -1,5 +1,5 @@
-module legacy_units_m
-  use prec, only: dp
+module fdf_legacy_units_m
+  use fdf_prec, only: dp
 
   implicit none
   
@@ -140,8 +140,8 @@ CONTAINS
 
   subroutine inquire_unit(unit_str, stat, phys_dim, unit_name, unit_value)
 
-    use utils, only: leqi
-    use prec, only: dp
+    use fdf_utils, only: leqi
+    use fdf_prec, only: dp
 
     character(len=*), intent(in)   :: unit_str   !+ unit specification
     character(len=*), intent(out)  :: phys_dim   !+ physical dimension (e.g. 'mass')
@@ -196,4 +196,4 @@ CONTAINS
       
     end subroutine inquire_unit
     
-  end module legacy_units_m
+  end module fdf_legacy_units_m

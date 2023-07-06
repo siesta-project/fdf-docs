@@ -188,9 +188,9 @@
 
 #define ERROR_UNIT  0
 
-MODULE parse
-  USE utils
-  USE prec
+MODULE fdf_parse
+  USE fdf_utils
+  USE fdf_prec
   implicit none
 
 
@@ -2304,4 +2304,4 @@ MODULE parse
 
   end subroutine recreate_pline
 
-END MODULE parse
+END MODULE fdf_parse

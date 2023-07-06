@@ -24,9 +24,9 @@
 #define ERROR_UNIT  0
 #define OUTPUT_UNIT 6
 
-MODULE io_fdf
-  USE utils
-  USE prec
+MODULE fdf_io
+  USE fdf_utils
+  USE fdf_prec
   USE iso_fortran_env
   implicit none
 
@@ -229,4 +229,4 @@ MODULE io_fdf
 !--------------------------------------------------------------------------- END
     END SUBROUTINE io_status
 
-END MODULE io_fdf
+END MODULE fdf_io

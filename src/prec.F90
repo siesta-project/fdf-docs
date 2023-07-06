@@ -19,7 +19,7 @@
 !
 !=====================================================================
 
-MODULE prec
+MODULE fdf_prec
 
 !
 ! Precision handling
@@ -28,4 +28,4 @@ MODULE prec
   integer, parameter :: ip = selected_int_kind(9)
   integer, parameter :: sp = selected_real_kind(6,20)
   integer, parameter :: dp = selected_real_kind(14,100)
-END MODULE prec
+END MODULE fdf_prec
