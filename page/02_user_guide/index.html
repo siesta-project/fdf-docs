@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Library to support the Flexible Data Format (FDF)">
+    <meta name="author" content="Alberto Garcia, Nick Papior, Raul de la Cruz" >
+    <link rel="icon" href="../../favicon.png">
+
+    <title>libFDF User Guide &ndash; libfdf</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/pygments.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/local.css" rel="stylesheet">
+      <link  href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+         <script src="../../js/jquery-2.1.3.min.js"></script>
+         <script src="../../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">libfdf </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li><a href='../../page/index.html'>Overview</a></li>
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+                 data-toggle="dropdown" role="button"
+                 aria-haspopup="true"
+                 aria-expanded="false">
+                 Contents <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                    <li><a href="../../lists/files.html">Source Files</a></li>
+                  <li><a href="../../lists/modules.html">Modules</a></li>
+                  <li><a href="../../lists/procedures.html">Procedures</a></li>
+                  <li><a href="../../lists/types.html">Derived Types</a></li>
+              </ul>
+            </li>
+                <li class="visible-xs hidden-sm visible-lg">
+                  <a href="../../lists/files.html">Source Files</a>
+                </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../lists/modules.html">Modules</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../lists/procedures.html">Procedures</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../lists/types.html">Derived Types</a>
+              </li>
+          </ul>
+            <form action="../../search.html" class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+              </div>
+              <!--
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  -->
+            </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+  <div class="row">
+    <h1>libFDF User Guide</h1>
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="well well-sm" style="min-height: 40px;">
+      <ul class="list-inline" style="margin-bottom:0px; display:inline">
+<!--
+        <li><i class="fa fa-sitemap"></i> Subsections:</li>
+        <li><a href='../../page/02_user_guide/01_installation.html'>Installation</a></li>
+        <li><a href='../../page/02_user_guide/02_api/index.html'>libFDF API</a></li>
+        <li><a href='../../page/02_user_guide/README_MPI.html'>MPI operation</a></li>
+-->
+      </ul>
+        <ol class="breadcrumb in-well">
+         <li><a href='../../page/index.html'>Overview</a></li>
+         <li class="active">libFDF User Guide</li>
+      </ol>
+    </div>
+    </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-9 col-md-push-3" id='text'>
+      <h3 id="example">Example</h3>
+<p>The typical use of FDF in a program is exemplified by the following snippet:</p>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span><span class="k">use </span><span class="nb">precision</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">dp</span>
+
+<span class="w">  </span><span class="k">use </span><span class="n">fdf</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">fdf_init</span><span class="p">,</span><span class="w"> </span><span class="n">fdf_get</span>
+<span class="w">  </span><span class="k">use </span><span class="n">units</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">eV</span><span class="w">   </span><span class="c">! approx 1.0/13.6</span>
+
+<span class="w">  </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">npts</span>
+<span class="w">  </span><span class="kt">logical</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">debug</span>
+<span class="w">  </span><span class="kt">real</span><span class="w">    </span><span class="kd">::</span><span class="w"> </span><span class="n">energy_tol</span>
+
+<span class="w">  </span><span class="k">call </span><span class="n">fdf_init</span><span class="p">(</span><span class="s2">&quot;sample.fdf&quot;</span><span class="p">,</span><span class="s2">&quot;fdf-log.out&quot;</span><span class="p">)</span>
+
+<span class="w">  </span><span class="n">npts</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">fdf_get</span><span class="p">(</span><span class="s2">&quot;NumberOfPoints&quot;</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="w">  </span><span class="n">debug</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="n">fdf_get</span><span class="p">(</span><span class="s2">&quot;Debug&quot;</span><span class="p">,.</span><span class="n">false</span><span class="p">.)</span>
+<span class="w">  </span><span class="n">energy_tol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fdf_get</span><span class="p">(</span><span class="s2">&quot;energy-tolerance&quot;</span><span class="p">,</span><span class="mf">0.01</span><span class="o">*</span><span class="n">eV</span><span class="p">,</span><span class="s2">&quot;Ry&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">...</span>
+</code></pre></div>
+
+<p>If the contents of <code>sample.fdf</code>  are</p>
+<div class="codehilite"><pre><span></span><code>number-of-points 200
+energy-tolerance 0.001 eV
+</code></pre></div>
+
+<p>the variables <code>npts</code>, <code>debug</code>, and <code>energy_tol</code> will be assigned the values
+200, <code>.false.</code>, and 0.001/13.6 (0.001 eV in Ry), respectively.</p>
+<p>In the absence of the <code>debug</code> label in the fdf file, the variable has
+taken its default value as specified in the program.</p>
+<h4 id="units-handling">Units handling</h4>
+<p>The case of <code>energy_tol</code> merits a special discussion. It is an example of a magnitude with units.
+Here, the program works internally in Rydberg (Ry) units. The energy tolerance variable has to
+store a Ry value, and this is specified by the last argument in the call to <code>fdf_get</code>.  The default
+value in this case is set to 0.01 eV by making use of a parameter <code>eV</code> exported by a <code>units</code> module.</p>
+<p>These unit conversions work out of the box in the current fdf implementation, through the use by default of
+a legacy unit handler and table appropriate for the domain of materials physics. For general use, a
+client program should set its own table and handler. This is exemplified in the file <code>tests/test-units.f90</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="k">use </span><span class="n">units_m</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">inquire_unit</span>
+<span class="w">  </span><span class="p">...</span>
+
+<span class="c">! Initialize</span>
+<span class="w">  </span><span class="k">call </span><span class="n">fdf_init</span><span class="p">(</span><span class="s1">&#39;units-test.fdf&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;units-test.out&#39;</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">call </span><span class="n">fdf_set_unit_handler</span><span class="p">(</span><span class="n">inquire_unit</span><span class="p">)</span>
+<span class="w">  </span><span class="p">...</span>
+</code></pre></div>
+
+<p>The handler <code>inquire_unit</code> is passed to fdf after fdf initialization
+with the call to <code>fdf_set_unit_handler</code>. From then on, fdf will set
+the (astrophysics-related) units table for the conversions.</p>
+<h3 id="parallel-operation">Parallel operation</h3>
+<p>When working in parallel, there is an extra step in the initialization phase</p>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span><span class="p">...</span>
+<span class="cp">#ifdef MPI</span>
+<span class="w">  </span><span class="k">use </span><span class="n">mpi</span>
+<span class="cp">#endif</span>
+<span class="w">  </span><span class="k">use </span><span class="n">fdf</span>
+<span class="w">  </span><span class="k">use </span><span class="n">units_m</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">inquire_unit</span>
+
+<span class="w">  </span><span class="p">...</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Node</span><span class="w"> </span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">     call </span><span class="n">fdf_init</span><span class="p">(</span><span class="n">filein</span><span class="p">,</span><span class="w"> </span><span class="n">fileout</span><span class="p">)</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="c">! Non-root ranks will need an extra step                                                                                endif</span>
+<span class="c">!</span>
+<span class="cp">#ifdef MPI      </span>
+<span class="w">  </span><span class="k">call </span><span class="n">broadcast_fdf_struct</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">mpi_comm_world</span><span class="p">)</span>
+<span class="cp">#endif</span>
+
+<span class="w">  </span><span class="k">call </span><span class="n">fdf_set_unit_handler</span><span class="p">(</span><span class="n">inquire_unit</span><span class="p">)</span>
+<span class="w">  </span><span class="c">!! call fdf_set_unit_handler(fdf_legacy_unit_handler)</span>
+<span class="w">  </span><span class="p">...</span>
+</code></pre></div>
+
+<p>to broadcast the FDF database object to all the processors.  The
+routine <code>broadcast_fdf_struct</code> can be found in file
+<code>broadcast_fdf_struct.F90</code> in the <code>doc</code> subdirectory of the libFDF
+distribution. It should be general enough for most codes.  Note that
+the unit handler should be set <em>AFTER</em> the broadcast operation. If no
+custom handler is available, and the legacy units are appropriate, the
+second (commented out) form of the call should be used.</p>
+<p>(This is
+different in MPI operation due to the danger of setting different handlers
+for the root and non-root ranks: forgetting the call after the broadcast would
+leave the root rank with the default handler, and no handler for the rest)</p>
+    </div>
+    <div class="col-md-3 col-md-pull-9">
+      <hr class="visible-xs visible-sm">
+        <div class="well toc">
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation" class="title"><a href='../../page/index.html'>Overview</a></li>
+          </ul>
+          <hr>
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation" class="disabled">
+            <a href='../../page/02_user_guide/index.html'>libFDF User Guide</a>
+            <ul class="nav nav-stacked nav-pills">
+                          <li role="presentation">
+            <a href='../../page/02_user_guide/01_installation.html'>Installation</a>
+            </li>
+            <li role="presentation">
+            <a href='../../page/02_user_guide/02_api/index.html'>libFDF API</a>
+            <ul class="nav nav-stacked nav-pills">
+                          <li role="presentation">
+            <a href='../../page/02_user_guide/02_api/block_handling.html'>Block Handling</a>
+            </li>
+            <li role="presentation">
+            <a href='../../page/02_user_guide/02_api/fdf.Standard.html'>FDF specifications</a>
+            </li>
+
+            </ul>
+            </li>
+            <li role="presentation">
+            <a href='../../page/02_user_guide/README_MPI.html'>MPI operation</a>
+            </li>
+
+            </ul>
+            </li>
+            <li role="presentation">
+            <a href='../../page/03_developer_notes/index.html'>Developer Notes</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6 col-md-6"><p>libfdf was developed by Alberto Garcia, Nick Papior, Raul de la Cruz<br>&copy; 2023 <a rel="license" href="http://www.freebsd.org/copyright/freebsd-doc-license.html">FreeBSD Documentation License</a>
+</p>
+          </div>
+          <div class="col-xs-6 col-md-6">
+            <p class="text-right">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+         ================================================== -->
+         <!-- Placed at the end of the document so the pages load faster -->
+    <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        -->
+        <script src="../../js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../js/ie10-viewport-bug-workaround.js"></script>
+
+        <!-- MathJax JavaScript
+             ================================================== -->
+             <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+          jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+          extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+          });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+          <script src="../../tipuesearch/tipuesearch_content.js"></script>
+          <script src="../../tipuesearch/tipuesearch_set.js"></script>
+          <script src="../../tipuesearch/tipuesearch.js"></script>
+
+  </body>
+</html>

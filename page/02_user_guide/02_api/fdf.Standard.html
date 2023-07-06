@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Library to support the Flexible Data Format (FDF)">
+    <meta name="author" content="Alberto Garcia, Nick Papior, Raul de la Cruz" >
+    <link rel="icon" href="../../../favicon.png">
+
+    <title>FDF specifications &ndash; libfdf</title>
+
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/pygments.css" rel="stylesheet">
+    <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../../css/local.css" rel="stylesheet">
+      <link  href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+         <script src="../../../js/jquery-2.1.3.min.js"></script>
+         <script src="../../../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../../index.html">libfdf </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li><a href='../../../page/index.html'>Overview</a></li>
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+                 data-toggle="dropdown" role="button"
+                 aria-haspopup="true"
+                 aria-expanded="false">
+                 Contents <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                    <li><a href="../../../lists/files.html">Source Files</a></li>
+                  <li><a href="../../../lists/modules.html">Modules</a></li>
+                  <li><a href="../../../lists/procedures.html">Procedures</a></li>
+                  <li><a href="../../../lists/types.html">Derived Types</a></li>
+              </ul>
+            </li>
+                <li class="visible-xs hidden-sm visible-lg">
+                  <a href="../../../lists/files.html">Source Files</a>
+                </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../../lists/modules.html">Modules</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../../lists/procedures.html">Procedures</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../../lists/types.html">Derived Types</a>
+              </li>
+          </ul>
+            <form action="../../../search.html" class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+              </div>
+              <!--
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  -->
+            </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+  <div class="row">
+    <h1>FDF specifications</h1>
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="well well-sm" style="min-height: 40px;">
+      <ul class="list-inline" style="margin-bottom:0px; display:inline">
+<!--
+-->
+      </ul>
+        <ol class="breadcrumb in-well">
+         <li><a href='../../../page/index.html'>Overview</a></li>
+         <li><a href='../../../page/02_user_guide/index.html'>libFDF User Guide</a></li>
+         <li><a href='../../../page/02_user_guide/02_api/index.html'>libFDF API</a></li>
+         <li class="active">FDF specifications</li>
+      </ol>
+    </div>
+    </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-9 col-md-push-3" id='text'>
+      <p>Specifications for FDF format and its processing by libFDF</p>
+<p>Input lines are parsed and a token list is created. A token is:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="w"> </span><span class="ow">Any</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">characters</span><span class="w"> </span><span class="n">enclosed</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">matching</span><span class="w"> </span><span class="n">pair</span><span class="w"> </span>
+<span class="w">  </span><span class="k">of</span><span class="w"> </span><span class="n">quotes</span><span class="w"> </span><span class="p">(</span><span class="err">&quot;</span><span class="p">,</span><span class="s1">&#39;,`). Embedded strings are not considered tokens.</span>
+<span class="s1">  The quotes are removed by the parsing routine.</span>
+
+<span class="s1">* A string of characters from the set [A-Z,a-z,0-9] of</span>
+<span class="s1">  alphanumeric characters plus $%&amp;@_.-*/^+~ (and any adjacent</span>
+<span class="s1">      unmatched quotes, as in apostrophes)</span>
+
+<span class="s1">* The character &#39;</span><span class="o">&lt;</span><span class="err">&#39;</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">itself</span><span class="p">.</span>
+</code></pre></div>
+
+<p>Examples:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">MeshCutoff</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s">&quot;File.fdf&quot;</span><span class="w">           </span><span class="mi">3</span><span class="w"> </span><span class="n">tokens</span><span class="o">:</span><span class="w"> </span><span class="n">MeshCutoff</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="p">,</span><span class="w"> </span><span class="n">File</span><span class="p">.</span><span class="n">fdf</span>
+<span class="n">System_Name</span><span class="w">  </span><span class="n">Devil</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">staircase</span><span class="w">    </span><span class="mi">3</span><span class="w"> </span><span class="n">tokens</span><span class="o">:</span><span class="w"> </span><span class="n">System_Name</span><span class="p">,</span><span class="w"> </span><span class="n">Devil</span><span class="err">&#39;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">staircase</span>
+<span class="nf">%block</span><span class="w"> </span><span class="n">AtomicCoordinates</span><span class="w"> </span><span class="nf">%dump</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">coords</span><span class="p">.</span><span class="n">dat</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="n">tokens</span>
+</code></pre></div>
+
+<p>The characters '#', ';', and '!' signal the beginning of a comment. Any
+remaining characters on the line are discarded.</p>
+<p>Labels and directives (%block, %include, %endblock) are case-insensitive.
+Labels are also internal-separator-insensitive, by which it is understood that
+the characters '.', '_', and '-' are removed before any comparison is made. The
+following forms are then equivalent:</p>
+<div class="codehilite"><pre><span></span><code>NumberOfPoints
+number-of-points
+NUMBER.of.Points
+...
+</code></pre></div>
+
+<h3 id="fdf-data-specifications">FDF data specifications</h3>
+<div class="codehilite"><pre><span></span><code><span class="n">Label</span><span class="w">   </span><span class="p">[</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">This</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="n">assigns</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">optional</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Label</span><span class="p">.</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="n">could</span><span class="w"> </span><span class="n">be</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">sequence</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">tokens</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">including</span><span class="w"> </span><span class="sc">&#39;&lt;&#39;</span><span class="p">.</span><span class="w"> </span>
+<span class="w">    </span><span class="p">&#39;</span><span class="n">Numerical</span><span class="p">&#39;</span><span class="w"> </span><span class="n">routines</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">fdf_integer</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">first</span><span class="w"> </span>
+<span class="w">    </span><span class="n">token</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">fdf_string</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">whole</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="w"> </span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nf">%block</span><span class="w"> </span><span class="n">Label</span><span class="w"> </span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="cp"># Optional comments</span>
+<span class="nf">%endblock</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">Label</span><span class="w"> </span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">This</span><span class="w"> </span><span class="n">construct</span><span class="w"> </span><span class="n">specifies</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">read</span>
+<span class="w">    </span><span class="n">by</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">calling</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="n">after</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">fdf_block</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">contents</span>
+<span class="w">    </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">dumped</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">fdf_out</span><span class="p">.</span><span class="w"> </span><span class="nf">%block</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="nf">%endblock</span><span class="w"> </span><span class="n">must</span>
+<span class="w">    </span><span class="n">be</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="n">tokens</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">respective</span><span class="w"> </span><span class="n">lines</span><span class="p">.</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nf">%block</span><span class="w"> </span><span class="n">Label</span><span class="w">  </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Filename</span><span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="nf">%dump</span><span class="w"> </span><span class="p">]</span>
+
+<span class="w">    </span><span class="n">Opens</span><span class="w"> </span><span class="n">Filename</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">block</span><span class="p">.</span><span class="w"> </span><span class="n">If</span><span class="w"> </span><span class="nf">%dump</span><span class="w"> </span><span class="n">appears</span>
+<span class="w">    </span><span class="n">at</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">*</span><span class="n">end</span><span class="o">*</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">line</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">contents</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Filename</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">dumped</span>
+<span class="w">  </span><span class="n">to</span><span class="w"> </span><span class="n">fdf_out</span><span class="p">.</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nf">%include</span><span class="w">  </span><span class="n">Filename</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Comments</span>
+
+<span class="w">    </span><span class="n">Opens</span><span class="w"> </span><span class="n">Filename</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">continues</span><span class="w"> </span><span class="n">reading</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">it</span><span class="p">.</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nv">Label</span><span class="w">   </span><span class="o">&lt;</span><span class="w"> </span><span class="nv">Filename</span><span class="w">   </span>#<span class="w"> </span><span class="nv">Comments</span>
+
+<span class="w">    </span><span class="nv">Opens</span><span class="w"> </span><span class="nv">Filename</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">continues</span><span class="w"> </span><span class="nv">reading</span><span class="w"> </span><span class="nv">from</span><span class="w"> </span><span class="nv">it</span>,<span class="w"> </span><span class="nv">ONLY</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">searching</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nv">Label</span>.
+
+<span class="w">    </span><span class="nv">There</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">maximum</span><span class="w"> </span><span class="nv">number</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">files</span><span class="w"> </span><span class="nv">that</span><span class="w"> </span><span class="nv">can</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="nv">opened</span><span class="w"> </span><span class="nv">at</span><span class="w"> </span><span class="nv">the</span>
+<span class="w">    </span><span class="nv">same</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">fdf</span><span class="w"> </span><span class="nv">processing</span>.
+</code></pre></div>
+
+<h3 id="debugging-and-logging">Debugging and logging.</h3>
+<p>By default, all the fdf requests are logged, printing the final value
+extracted (if it is the default value, it is identified as such).</p>
+<p>No debugging is done, unless the "debug-level" is set to a value greater
+than zero. The most meaningful way to use this feature is to set the
+debugging level before the fdf data structures are built. This can be
+achieved by calling the routine fdf_setdebug with the appropriate level
+and file name <em>before</em> the call to fdf_init.  This gives full control
+over the behavior.  </p>
+    </div>
+    <div class="col-md-3 col-md-pull-9">
+      <hr class="visible-xs visible-sm">
+        <div class="well toc">
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation" class="title"><a href='../../../page/index.html'>Overview</a></li>
+          </ul>
+          <hr>
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation">
+            <a href='../../../page/02_user_guide/index.html'>libFDF User Guide</a>
+            <ul class="nav nav-stacked nav-pills">
+                          <li role="presentation">
+            <a href='../../../page/02_user_guide/01_installation.html'>Installation</a>
+            </li>
+            <li role="presentation">
+            <a href='../../../page/02_user_guide/02_api/index.html'>libFDF API</a>
+            <ul class="nav nav-stacked nav-pills">
+                          <li role="presentation">
+            <a href='../../../page/02_user_guide/02_api/block_handling.html'>Block Handling</a>
+            </li>
+            <li role="presentation" class="disabled">
+            <a href='../../../page/02_user_guide/02_api/fdf.Standard.html'>FDF specifications</a>
+            </li>
+
+            </ul>
+            </li>
+            <li role="presentation">
+            <a href='../../../page/02_user_guide/README_MPI.html'>MPI operation</a>
+            </li>
+
+            </ul>
+            </li>
+            <li role="presentation">
+            <a href='../../../page/03_developer_notes/index.html'>Developer Notes</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6 col-md-6"><p>libfdf was developed by Alberto Garcia, Nick Papior, Raul de la Cruz<br>&copy; 2023 <a rel="license" href="http://www.freebsd.org/copyright/freebsd-doc-license.html">FreeBSD Documentation License</a>
+</p>
+          </div>
+          <div class="col-xs-6 col-md-6">
+            <p class="text-right">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+         ================================================== -->
+         <!-- Placed at the end of the document so the pages load faster -->
+    <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        -->
+        <script src="../../../js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../../js/ie10-viewport-bug-workaround.js"></script>
+
+        <!-- MathJax JavaScript
+             ================================================== -->
+             <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+          jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+          extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+          });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+          <script src="../../../tipuesearch/tipuesearch_content.js"></script>
+          <script src="../../../tipuesearch/tipuesearch_set.js"></script>
+          <script src="../../../tipuesearch/tipuesearch.js"></script>
+
+  </body>
+</html>

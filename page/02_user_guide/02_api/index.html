@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Library to support the Flexible Data Format (FDF)">
+    <meta name="author" content="Alberto Garcia, Nick Papior, Raul de la Cruz" >
+    <link rel="icon" href="../../../favicon.png">
+
+    <title>libFDF API &ndash; libfdf</title>
+
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/pygments.css" rel="stylesheet">
+    <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../../css/local.css" rel="stylesheet">
+      <link  href="../../../tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+         <script src="../../../js/jquery-2.1.3.min.js"></script>
+         <script src="../../../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../../index.html">libfdf </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li><a href='../../../page/index.html'>Overview</a></li>
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+                 data-toggle="dropdown" role="button"
+                 aria-haspopup="true"
+                 aria-expanded="false">
+                 Contents <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                    <li><a href="../../../lists/files.html">Source Files</a></li>
+                  <li><a href="../../../lists/modules.html">Modules</a></li>
+                  <li><a href="../../../lists/procedures.html">Procedures</a></li>
+                  <li><a href="../../../lists/types.html">Derived Types</a></li>
+              </ul>
+            </li>
+                <li class="visible-xs hidden-sm visible-lg">
+                  <a href="../../../lists/files.html">Source Files</a>
+                </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../../lists/modules.html">Modules</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../../lists/procedures.html">Procedures</a>
+              </li>
+              <li class="visible-xs hidden-sm visible-lg">
+                <a href="../../../lists/types.html">Derived Types</a>
+              </li>
+          </ul>
+            <form action="../../../search.html" class="navbar-form navbar-right" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+              </div>
+              <!--
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  -->
+            </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+  <div class="row">
+    <h1>libFDF API</h1>
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="well well-sm" style="min-height: 40px;">
+      <ul class="list-inline" style="margin-bottom:0px; display:inline">
+<!--
+        <li><i class="fa fa-sitemap"></i> Subsections:</li>
+        <li><a href='../../../page/02_user_guide/02_api/block_handling.html'>Block Handling</a></li>
+        <li><a href='../../../page/02_user_guide/02_api/fdf.Standard.html'>FDF specifications</a></li>
+-->
+      </ul>
+        <ol class="breadcrumb in-well">
+         <li><a href='../../../page/index.html'>Overview</a></li>
+         <li><a href='../../../page/02_user_guide/index.html'>libFDF User Guide</a></li>
+         <li class="active">libFDF API</li>
+      </ol>
+    </div>
+    </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-9 col-md-push-3" id='text'>
+      <div class="toc">
+<ul>
+<li><a href="#exported-types">Exported types</a></li>
+<li><a href="#initialization-routine">Initialization routine</a></li>
+<li><a href="#main-routines">Main routines</a><ul>
+<li><a href="#label-queries">Label queries</a></li>
+<li><a href="#scalar-values">Scalar values</a></li>
+<li><a href="#block-handling">Block handling</a></li>
+<li><a href="#lists">Lists</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Access to the library's functionality is provided by importing the <a href="../../../module/fdf.html">fdf</a> module:</p>
+<div class="codehilite"><pre><span></span><code>use fdf
+</code></pre></div>
+
+<p>which exports the interfaces to the public user-level routines and other symbols.</p>
+<h2 id="exported-types">Exported types</h2>
+<ul>
+<li>A block handle <a href="../../../type/block_fdf.html">block_fdf</a></li>
+<li>A parsed-line handle <a href="../../../type/parsed_line.html">parsed_line</a></li>
+</ul>
+<h2 id="initialization-routine">Initialization routine</h2>
+<p>It is necessary to call the <a href="../../../proc/fdf_init.html">fdf_init</a> routine before any other operations.
+When working in parallel, only the master node has to call the routine (see <a href="../README_MPI.html">this file</a> for
+more information.</p>
+<h2 id="main-routines">Main routines</h2>
+<p>These perform queries and extract data from the FDF file, in accordance with the <a href="./fdf.Standard.html">FDF specifications</a></p>
+<h3 id="label-queries">Label queries</h3>
+<ul>
+<li>The routine <a href="../../../proc/fdf_defined.html">fdf_defined</a> returns true if a given label is present in the fdf file.</li>
+</ul>
+<h3 id="scalar-values">Scalar values</h3>
+<ul>
+<li>The interface <a href="../../../interface/fdf_get.html">fdf_get</a> is overloaded to cover all relevant data types, and optionally handles units.</li>
+</ul>
+<h3 id="block-handling">Block handling</h3>
+<ul>
+<li>Routine <a href="../../../proc/fdf_block.html">fdf_block</a> returns true if a given block is present
+  in the fdf file, and also instantiates a block handle for further
+  processing. A full example of block processing can be found <a href="./block_handling.html">here</a>.</li>
+</ul>
+<h3 id="lists">Lists</h3>
+<p>A full example of list processing can be found <a href="./list_handling.html">here</a>.</p>
+    </div>
+    <div class="col-md-3 col-md-pull-9">
+      <hr class="visible-xs visible-sm">
+        <div class="well toc">
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation" class="title"><a href='../../../page/index.html'>Overview</a></li>
+          </ul>
+          <hr>
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation">
+            <a href='../../../page/02_user_guide/index.html'>libFDF User Guide</a>
+            <ul class="nav nav-stacked nav-pills">
+                          <li role="presentation">
+            <a href='../../../page/02_user_guide/01_installation.html'>Installation</a>
+            </li>
+            <li role="presentation" class="disabled">
+            <a href='../../../page/02_user_guide/02_api/index.html'>libFDF API</a>
+            <ul class="nav nav-stacked nav-pills">
+                          <li role="presentation">
+            <a href='../../../page/02_user_guide/02_api/block_handling.html'>Block Handling</a>
+            </li>
+            <li role="presentation">
+            <a href='../../../page/02_user_guide/02_api/fdf.Standard.html'>FDF specifications</a>
+            </li>
+
+            </ul>
+            </li>
+            <li role="presentation">
+            <a href='../../../page/02_user_guide/README_MPI.html'>MPI operation</a>
+            </li>
+
+            </ul>
+            </li>
+            <li role="presentation">
+            <a href='../../../page/03_developer_notes/index.html'>Developer Notes</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6 col-md-6"><p>libfdf was developed by Alberto Garcia, Nick Papior, Raul de la Cruz<br>&copy; 2023 <a rel="license" href="http://www.freebsd.org/copyright/freebsd-doc-license.html">FreeBSD Documentation License</a>
+</p>
+          </div>
+          <div class="col-xs-6 col-md-6">
+            <p class="text-right">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+         ================================================== -->
+         <!-- Placed at the end of the document so the pages load faster -->
+    <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        -->
+        <script src="../../../js/bootstrap.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../../js/ie10-viewport-bug-workaround.js"></script>
+
+        <!-- MathJax JavaScript
+             ================================================== -->
+             <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+          jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+          extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+          });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+          <script src="../../../tipuesearch/tipuesearch_content.js"></script>
+          <script src="../../../tipuesearch/tipuesearch_set.js"></script>
+          <script src="../../../tipuesearch/tipuesearch.js"></script>
+
+  </body>
+</html>
